@@ -1,4 +1,4 @@
-export default function ProjectDetail_Page({params}){
+export default function ProjectDetailPage({params}){
     console.log(params);
 
     const {id:clientId, projectId} = params;

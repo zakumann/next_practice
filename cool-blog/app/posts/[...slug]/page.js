@@ -1,4 +1,4 @@
-export default function AnotherPostDetail_Page({params}){
+export default function AnotherPostDetailPage({params}){
     console.log(params);
     const{slug}=params;
 
