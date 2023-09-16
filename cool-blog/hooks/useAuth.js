@@ -1,5 +1,6 @@
 "use client";
 
+import { removeCookies } from "cookies-next";
 import CONSTANTS from "@/app/constants";
 
 const useAuth = () => {
@@ -28,8 +29,40 @@ const useAuth = () => {
         .catch(() => {});
     };
 
+    const signin = ({ email, password }, callback) => {
+        const reqBody = {
+            email,
+            password,
+        };
+        fetch("/api/auth/signin",{
+            method: "POST",
+            body: JSON.stringify(reqBody),
+            headers:{
+                "Content-Type":"application/json",
+            },
+        })
+        .then((data) => data.json())
+        .then((response) => {
+            console.log(response);
+            if(response.status === CONSTANTS.RESPONSE_STATUS.OK){
+                if(callback){
+                    callback();
+                }
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
+    const signout = () => {
+        removeCookies("next-jwt");
+    };
+
     return {
         signup,
+        signin,
+        signout,
     };
 };
 export default useAuth;
